@@ -1,0 +1,52 @@
+# .gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Environment variables (NEVER commit real .env)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.coverage
+htmlcov/
+coverage.xml
+coverage.json
+.pytest_cache/
+
+# Ruff
+.ruff_cache/
+
+# mypy / pyright
+.mypy_cache/
+.pyright/
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
