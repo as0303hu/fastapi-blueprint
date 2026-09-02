@@ -1,0 +1,93 @@
+[project]
+name = "fastapi-blueprint"
+version = "0.1.0"
+description = "Production-ready FastAPI boilerplate combining best patterns"
+requires-python = ">=3.12"
+dependencies = [
+    "aiobotocore[boto3]>=3.9.0",
+    "alembic>=1.19.1",
+    "asyncpg>=0.31.0",
+    "cachetools>=7.1.8",
+    "cryptography>=50.0.1",
+    "fastapi>=0.141.1",
+    "httpx>=0.28.1",
+    "langchain-openai>=1.6.0",
+    "langgraph>=1.2.11",
+    "loguru>=0.7.3",
+    "openai>=3.7.0",
+    "pgvector>=0.5.0",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "pyjwt>=2.13.0",
+    "python-jose[cryptography]>=3.5.0",
+    "sqlalchemy[asyncio]>=2.0.52",
+    "uvicorn[standard]>=0.52.4",
+]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.16.0",
+    "pre-commit>=4.6.2",
+    "pyright[nodejs]>=1.1.411",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-httpx>=0.36.2",
+    "ruff>=0.16.5",
+    "testcontainers[localstack,postgres]>=4.15.0",
+]
+[build-system]
+requires =["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+required-version = ">=0.5"
+
+[tool.ruff]
+line-length =240
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["A","B","E", "W", "F", "I", "UP","SIM","TID","PLE","PLW","S", "N", "ASYNC"]
+ignore = [
+    "E501","S101","B008"
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S106","S105", "S101"]
+"alembic/**" = ["N999"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"  # Options: "off", "basic", "standard", "strict"
+include = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath= ["."]
+minversion = "8.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+markers = [
+    "unit: Unit tests (mocked,fast)",
+    "integration: Integration tests (testcontainers, slow)",
+    "e2e: End-to-end API tests (full stack)",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "alembic/*",
+    "tests/*",
+    "src/ai/agents/sample_agent.py",
+    "src/ai/pipelines/sample_pipeline.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 70
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "if __name__ ==",
+]
